@@ -4,8 +4,6 @@ import com.battle.heroes.army.Unit;
 import com.battle.heroes.army.programs.Edge;
 import com.battle.heroes.army.programs.UnitTargetPathFinder;
 
-import java.io.FileNotFoundException;
-import java.io.PrintStream;
 import java.util.*;
 
 public class UnitTargetPathFinderImpl implements UnitTargetPathFinder {
@@ -14,6 +12,15 @@ public class UnitTargetPathFinderImpl implements UnitTargetPathFinder {
     private static final int HEIGHT = 21;
     private static final int[][] DIRECTIONS = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
 
+    /**
+     * Алгоритмическая сложность:
+     * 1. Создание множества препятствий: O(n), где n - количество юнитов
+     * 2. Основной алгоритм Дейкстры:
+     *    - Приоритетная очередь: O(log V) для вставки/извлечения, где V = WIDTH * HEIGHT
+     *    - Каждая вершина может быть добавлена в очередь максимум 4 раза (по числу направлений)
+     *    - Итого: O((WIDTH * HEIGHT) * log(WIDTH * HEIGHT))
+     * Общая сложность: O((WIDTH * HEIGHT) * log(WIDTH * HEIGHT))
+     */
     @Override
     public List<Edge> getTargetPath(Unit attackUnit, Unit targetUnit, List<Unit> existingUnitList) {
 
@@ -86,6 +93,11 @@ public class UnitTargetPathFinderImpl implements UnitTargetPathFinder {
         return path;
     }
 
+    /**
+     * Акробатика с новым классом нужна, т.к. мы используем hashSet
+     * Для корректной работы встроенных методов которого (например, .contains)
+     * необходимо переопределить методы equals и hashCode
+     */
     private static class PathEdge {
         private final int x;
         private final int y;
