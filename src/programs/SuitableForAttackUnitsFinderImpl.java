@@ -4,7 +4,6 @@ import com.battle.heroes.army.Unit;
 import com.battle.heroes.army.programs.SuitableForAttackUnitsFinder;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class SuitableForAttackUnitsFinderImpl implements SuitableForAttackUnitsFinder {
@@ -17,7 +16,6 @@ public class SuitableForAttackUnitsFinderImpl implements SuitableForAttackUnitsF
      */
     @Override
     public List<Unit> getSuitableUnits(List<List<Unit>> unitsByRow, boolean isLeftArmyTarget) {
-        System.out.println("get " + isLeftArmyTarget);
         List<Unit> suitableUnits = new ArrayList<>();
 
         // Для каждого ряда находим подходящие юниты
@@ -51,9 +49,6 @@ public class SuitableForAttackUnitsFinderImpl implements SuitableForAttackUnitsF
                 }
             }
         }
-//        for (Unit u : suitableUnits) {
-//            System.out.println("coord to attack: " + u.getxCoordinate() + " " + u.getyCoordinate());
-//        }
         return suitableUnits;
     }
 }

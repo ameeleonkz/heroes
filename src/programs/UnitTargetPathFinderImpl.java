@@ -16,15 +16,6 @@ public class UnitTargetPathFinderImpl implements UnitTargetPathFinder {
 
     @Override
     public List<Edge> getTargetPath(Unit attackUnit, Unit targetUnit, List<Unit> existingUnitList) {
-        System.out.println("getTargetPath attackUnit " + attackUnit.getxCoordinate() + " " + attackUnit.getyCoordinate());
-        System.out.println("getTargetPath targetUnit " + targetUnit.getxCoordinate() + " " + targetUnit.getyCoordinate());
-        PrintStream fileStream = null;
-        try {
-            fileStream = new PrintStream("filename.txt");
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        System.setOut(fileStream);
 
         Set<PathEdge> obstacles = new HashSet<>();
         for (Unit unit : existingUnitList) {
@@ -49,16 +40,13 @@ public class UnitTargetPathFinderImpl implements UnitTargetPathFinder {
             PathEdge currentEdge = current.edge;
 
             if (currentEdge.equals(end)) {
-                System.out.println("reconstructPath");
                 return reconstructPath(previousNode, end);
             }
 
             if (visited.contains(currentEdge)) {
-                System.out.println("continue");
                 continue;
             }
             visited.add(currentEdge);
-            System.out.println("currentEdge " + currentEdge.getX() + " " + currentEdge.getY());
 
             for (int[] dir : DIRECTIONS) {
                 PathEdge neighbor = new PathEdge(
@@ -77,7 +65,6 @@ public class UnitTargetPathFinderImpl implements UnitTargetPathFinder {
                 }
             }
         }
-        System.out.println("getTargetPathEnd");
         return new ArrayList<>();
     }
 
